@@ -17,6 +17,11 @@ public class MyConnectUnit {
         connect = new MySQLConnection("localhost", "root", "", "qlcuahanggiaydb");
     }
     
+    // hàm kết njoi61 truyền dữ database để lấy
+    public MyConnectUnit(String Name) {
+        connect = new MySQLConnection("localhost", "root", "", Name);
+    }
+    
     // hàm khởi tạo cơ bản
     public MyConnectUnit(String Host, String Username, String Password, String Database) {
         connect = new MySQLConnection(Host, Username, Password, Database);
