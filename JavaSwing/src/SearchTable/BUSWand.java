@@ -1,14 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package SearchTable;
 
-/**
- *
- * @author HiamKaito
- */
+import java.util.ArrayList;
+
 public class BUSWand {
+    private ArrayList<Weapon> list_WPW;
+    /**
+     * Xử lý các lệnh trong SQL
+     */
+    private DAOWand wandDAO;
+
+    public BUSWand() throws Exception {
+        list_WPW = new ArrayList<>();
+        wandDAO = new DAOWand();
+        list_WPW = wandDAO.readDB();
+    }
     
+    public void display() {
+        for (Weapon weapon : list_WPW) {
+            weapon.display();
+        }
+    }
 }

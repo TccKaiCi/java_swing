@@ -1,30 +1,25 @@
 package SearchTable;
 
-public abstract class Weopon {
+public abstract class Weapon {
 
     private int iId;
     private String strName;
-    private int iPrice;
-    private String strInfor;
     private int iRange;
     private int iDamage;
     private String strImage;
-    private boolean blReq2Hand;
 
     public abstract int dealDamage();
+    public abstract void display();
 
-    public Weopon() {
+    public Weapon() {
     }
 
-    public Weopon(int iId, String strName, int iPrice, String strInfor, int iRange, int iDamage, String strImage, boolean blReq2Hand) {
+    public Weapon(int iId, String strName, int iRange, int iDamage, String strImage) {
         this.iId = iId;
         this.strName = strName;
-        this.iPrice = iPrice;
-        this.strInfor = strInfor;
         this.iRange = iRange;
         this.iDamage = iDamage;
         this.strImage = strImage;
-        this.blReq2Hand = blReq2Hand;
     }
 
     public int getiId() {
@@ -41,22 +36,6 @@ public abstract class Weopon {
 
     public void setStrName(String strName) {
         this.strName = strName;
-    }
-
-    public int getiPrice() {
-        return iPrice;
-    }
-
-    public void setiPrice(int iPrice) {
-        this.iPrice = iPrice;
-    }
-
-    public String getStrInfor() {
-        return strInfor;
-    }
-
-    public void setStrInfor(String strInfor) {
-        this.strInfor = strInfor;
     }
 
     public int getiRange() {
@@ -83,17 +62,10 @@ public abstract class Weopon {
         this.strImage = strImage;
     }
 
-    public boolean isBlReq2Hand() {
-        return blReq2Hand;
-    }
-
-    public void setBlReq2Hand(boolean blReq2Hand) {
-        this.blReq2Hand = blReq2Hand;
-    }
-
     @Override
     public String toString() {
-        return "Weopon{" + "iId=" + iId + ", strName=" + strName + ", iPrice=" + iPrice + ", strInfor=" + strInfor + ", iRange=" + iRange + ", iDamage=" + iDamage + ", strImage=" + strImage + ", blReq2Hand=" + blReq2Hand + '}';
+        return "Weopon{" + "iId=" + iId + ", strName=" + strName + ", iRange=" + iRange + ", iDamage=" + iDamage + ", strImage=" + strImage + '}';
     }
 
+    
 }

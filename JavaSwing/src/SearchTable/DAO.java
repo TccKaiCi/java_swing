@@ -4,7 +4,7 @@ import ConnectDatabase.*;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class DAOSword {
+public class DAO {
 
     MyConnectUnit connect;
 
@@ -12,8 +12,21 @@ public class DAOSword {
         // kết nối CSDL
         connect = new MyConnectUnit("SearchTableDB");
 
-        ResultSet result = this.connect.Select("tblsword", condition, orderBy);
-        ArrayList<Weapon> swords = new ArrayList<>();
+        ResultSet result = this.connect.Select("tblwand", condition, orderBy);
+        ArrayList<Weapon> weapons = new ArrayList<>();
+        while (result.next()) {
+            Weapon wand = new DTOWand(
+                    Integer.parseInt(result.getString("energy")),
+                    result.getString("element"));
+            wand.setiId(Integer.parseInt(result.getString("id")));
+            wand.setStrName(result.getString("name"));
+            wand.setiDamage(Integer.parseInt(result.getString("damage")));
+            wand.setiRange(Integer.parseInt(result.getString("range")));
+            wand.setStrImage(result.getString("image"));
+            weapons.add(wand);
+        }
+        
+        result = this.connect.Select("tblsword", condition, orderBy);
         while (result.next()) {
             Weapon sword = new DTOSword(
                     Integer.parseInt(result.getString("sharpness")));
@@ -22,10 +35,11 @@ public class DAOSword {
             sword.setiDamage(Integer.parseInt(result.getString("damage")));
             sword.setiRange(Integer.parseInt(result.getString("range")));
             sword.setStrImage(result.getString("image"));
-            swords.add(sword);
+            weapons.add(sword);
         }
+        
         connect.Close();
-        return swords;
+        return weapons;
     }
 
     public ArrayList<Weapon> readDB(String condition) throws Exception {

@@ -1,6 +1,6 @@
 package SearchTable;
 
-public class DTOWand extends Weopon {
+public class DTOWand extends Weapon {
 
     private int iEnergy;
     private String strElement;
@@ -8,6 +8,11 @@ public class DTOWand extends Weopon {
     public DTOWand() {
     }
 
+    public DTOWand(int iEnergy, String strElement) {
+        this.iEnergy = iEnergy;
+        this.strElement = strElement;
+    }
+    
     @Override
     public int dealDamage() {
         if (iEnergy <= 0) {
@@ -23,10 +28,37 @@ public class DTOWand extends Weopon {
 
     }
 
-    public DTOWand(int iEnergy, String strElement, int iId, String strName, int iPrice, String strInfor, int iRange, int iDamage, String strImage, boolean blReq2Hand) {
-        super(iId, strName, iPrice, strInfor, iRange, iDamage, strImage, blReq2Hand);
+    public DTOWand(int iEnergy, String strElement, int iId, String strName, int iRange, int iDamage, String strImage) {
+        super(iId, strName,iRange, iDamage, strImage);
         this.iEnergy = iEnergy;
         this.strElement = strElement;
     }
 
+    @Override
+    public void display() {
+        System.out.println(super.toString() + this.toString());
+    }
+
+    @Override
+    public String toString() {
+        return "DTOWand{" + "iEnergy=" + iEnergy + ", strElement=" + strElement + '}';
+    }
+
+    public int getiEnergy() {
+        return iEnergy;
+    }
+
+    public void setiEnergy(int iEnergy) {
+        this.iEnergy = iEnergy;
+    }
+
+    public String getStrElement() {
+        return strElement;
+    }
+
+    public void setStrElement(String strElement) {
+        this.strElement = strElement;
+    }
+    
+    
 }
