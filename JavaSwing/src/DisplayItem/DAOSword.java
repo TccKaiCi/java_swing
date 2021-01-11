@@ -1,4 +1,4 @@
-package SearchTable;
+package DisplayItem;
 
 import ConnectDatabase.*;
 import java.sql.ResultSet;

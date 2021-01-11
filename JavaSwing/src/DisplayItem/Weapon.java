@@ -1,4 +1,4 @@
-package SearchTable;
+package DisplayItem;
 
 public abstract class Weapon {
 
@@ -67,5 +67,10 @@ public abstract class Weapon {
         return "Weopon{" + "iId=" + iId + ", strName=" + strName + ", iRange=" + iRange + ", iDamage=" + iDamage + ", strImage=" + strImage + '}';
     }
 
-    
+    public static int nameInc(Weapon a, Weapon b){
+        return a.getStrName().compareTo(b.getStrName());
+    }
+    public static int nameDesc(Weapon a, Weapon b){
+        return b.getStrName().compareTo(a.getStrName());
+    }
 }

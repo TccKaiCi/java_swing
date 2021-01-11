@@ -1,4 +1,4 @@
-package SearchTable;
+package DisplayItem;
 
 public class DTOSword extends Weapon {
 
@@ -39,6 +39,5 @@ public class DTOSword extends Weapon {
     public void setiSharpness(int iSharpness) {
         this.iSharpness = iSharpness;
     }
-    
     
 }

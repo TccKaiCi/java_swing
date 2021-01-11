@@ -1,10 +1,10 @@
-package SearchTable;
+package DisplayItem;
 
 import ConnectDatabase.*;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class DAOWand {
+public class DAO {
 
     MyConnectUnit connect;
 
@@ -13,7 +13,7 @@ public class DAOWand {
         connect = new MyConnectUnit("SearchTableDB");
 
         ResultSet result = this.connect.Select("tblwand", condition, orderBy);
-        ArrayList<Weapon> wands = new ArrayList<>();
+        ArrayList<Weapon> weapons = new ArrayList<>();
         while (result.next()) {
             Weapon wand = new DTOWand(
                     Integer.parseInt(result.getString("energy")),
@@ -23,10 +23,23 @@ public class DAOWand {
             wand.setiDamage(Integer.parseInt(result.getString("damage")));
             wand.setiRange(Integer.parseInt(result.getString("range")));
             wand.setStrImage(result.getString("image"));
-            wands.add(wand);
+            weapons.add(wand);
         }
+        
+        result = this.connect.Select("tblsword", condition, orderBy);
+        while (result.next()) {
+            Weapon sword = new DTOSword(
+                    Integer.parseInt(result.getString("sharpness")));
+            sword.setiId(Integer.parseInt(result.getString("id")));
+            sword.setStrName(result.getString("name"));
+            sword.setiDamage(Integer.parseInt(result.getString("damage")));
+            sword.setiRange(Integer.parseInt(result.getString("range")));
+            sword.setStrImage(result.getString("image"));
+            weapons.add(sword);
+        }
+        
         connect.Close();
-        return wands;
+        return weapons;
     }
 
     public ArrayList<Weapon> readDB(String condition) throws Exception {
@@ -36,5 +49,4 @@ public class DAOWand {
     public ArrayList<Weapon> readDB() throws Exception {
         return readDB(null);
     }
-
 }

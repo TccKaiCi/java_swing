@@ -1,4 +1,4 @@
-package SearchTable;
+package DisplayItem;
 
 public class DTOWand extends Weapon {
 

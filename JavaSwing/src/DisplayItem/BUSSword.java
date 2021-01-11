@@ -1,4 +1,4 @@
-package SearchTable;
+package DisplayItem;
 
 import java.util.ArrayList;
 
@@ -20,4 +20,15 @@ public class BUSSword {
             weapon.display();
         }
     }
+    
+    public void dealDamage() {
+        for (Weapon weapon : list_WPS) {  
+            weapon.dealDamage();
+        }
+    }
+    
+    public int lenght() {
+        return list_WPS.size();
+    }
+    
 }

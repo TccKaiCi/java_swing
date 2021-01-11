@@ -1,6 +1,8 @@
-package SearchTable;
+package DisplayItem;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class BUS {
 
@@ -38,7 +40,7 @@ public class BUS {
 
         return arrImage;
     }
-    
+
     public Weapon[] getInfor() {
         Weapon[] weapons = new Weapon[list_WP.size()];
         int i = 0;
@@ -50,8 +52,16 @@ public class BUS {
 
         return weapons;
     }
-    
+
     public int getSize() {
         return list_WP.size();
+    }
+
+    public void sortingName(boolean inc) {
+        if (inc) {
+            Collections.sort(list_WP, Weapon::nameInc);
+        } else {
+            Collections.sort(list_WP, Weapon::nameDesc);
+        }
     }
 }
