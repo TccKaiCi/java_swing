@@ -6,6 +6,6 @@
 | [Login](./JavaSwing/src/Login) | 100% | Easy |
 | [DisplayItem](./JavaSwing/src/DisplayItem) | 100% | Normal |
 | [ChangeTheme](./JavaSwing/src/ChangeTheme) | 100% | Very Easy |
-| Manage | 0% |  |
+| [Internationalization](./JavaSwing/src/Internationalization | 100% | Easy |
 | statistical | 0% |  |
 | etc | |
