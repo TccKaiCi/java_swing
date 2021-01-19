@@ -7,5 +7,5 @@
 | [DisplayItem](./JavaSwing/src/DisplayItem) | 100% | Normal |
 | [ChangeTheme](./JavaSwing/src/ChangeTheme) | 100% | Very Easy |
 | [Internationalization](./JavaSwing/src/Internationalization) | 100% | Easy |
-| statistical | 0% |  |
+| File | 0% | Easy |
 | etc | |
