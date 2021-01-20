@@ -1,4 +1,3 @@
-
 ## What i can do on java swing
 
 | Project | Progress | Difficult |
@@ -6,6 +5,9 @@
 | [Login](./JavaSwing/src/Login) | 100% | Easy |
 | [DisplayItem](./JavaSwing/src/DisplayItem) | 100% | Normal |
 | [ChangeTheme](./JavaSwing/src/ChangeTheme) | 100% | Very Easy |
-| Manage | 0% |  |
-| statistical | 0% |  |
+| [Internationalization](./JavaSwing/src/Internationalization) | 100% | Easy |
+| File | 0% | Easy |
 | etc | |
+
+You can suggest your ideas for me to do at [discussions](https://github.com/HiamKaito/java_swing/discussions) !
+Thanks
