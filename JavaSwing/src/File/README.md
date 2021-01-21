@@ -12,13 +12,17 @@
 
 In this, 
 I create 1 file name "Chonfile" have a Jfilechose, when it file selected:
-<br>
 
-File selectedFile = jFileChooser1.getSelectedFile();<br>
-this.setName( selectedFile.toString() );<br>
-this.dispose();<br>
+```java
+File selectedFile = jFileChooser1.getSelectedFile();
+this.setName( selectedFile.toString() );
+this.dispose();
+```
 
-And file GUI to check it:<br>
-ChonFile cf = new ChonFile(this, true);<br>
-cf.setVisible(true);<br>
+And file GUI to check it:
+
+```java
+ChonFile cf = new ChonFile(this, true);
+cf.setVisible(true);
 jLabel1.setText(cf.getName());
+```
