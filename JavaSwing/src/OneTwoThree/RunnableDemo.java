@@ -9,7 +9,8 @@ public class RunnableDemo implements Runnable {
 
     private Thread t;
     private String threadName;
-
+    Player player;
+    
     public RunnableDemo(String threadName) {
         this.threadName =threadName;
     }
@@ -18,7 +19,7 @@ public class RunnableDemo implements Runnable {
         String s = "C:/Users/HiamKaito/Desktop/Java/java_swing/JavaSwing/src/OneTwoThree/music.mp3";
         try {
             FileInputStream fileInputStream = new FileInputStream(s);
-            Player player = new Player(fileInputStream);
+            player = new Player(fileInputStream);
             System.out.println("Song is playing...");
             System.out.println(s);
             player.play();
@@ -36,8 +37,10 @@ public class RunnableDemo implements Runnable {
         System.out.println("Running " + threadName);
         try {
             if (threadName.equalsIgnoreCase("Music")) {
-                playSound();
-                Thread.sleep(1000);
+                do {
+                    playSound();
+                    Thread.sleep(500);
+                } while ( player.isComplete() );
             }
             else {
                 GUI gui = new GUI();
