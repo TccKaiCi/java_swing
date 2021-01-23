@@ -1,33 +1,9 @@
 package OneTwoThree;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
-
 public class GUI extends javax.swing.JFrame {
-
-    public void playMusic() {
-        InputStream music;
-        try {
-            music = new FileInputStream(new File("music"));
-            AudioStream audio = new AudioStream(music);
-            AudioPlayer.player.start(audio);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 
     public GUI() {
         initComponents();
-//        playMusic();
     }
 
     @SuppressWarnings("unchecked")
@@ -51,8 +27,9 @@ public class GUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFocusTraversalPolicyProvider(true);
-        setPreferredSize(new java.awt.Dimension(1138, 500));
 
+        jPanel1.setMaximumSize(new java.awt.Dimension(1138, 500));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1138, 500));
         jPanel1.setLayout(null);
 
         jPanelHeal_1.setBackground(new java.awt.Color(80, 245, 80));
@@ -167,7 +144,7 @@ public class GUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
 
         pack();
