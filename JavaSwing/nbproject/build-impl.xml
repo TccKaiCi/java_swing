@@ -67,6 +67,8 @@ is divided into following sections:
             <sequential>
                 <loadresource property="@{property}" quiet="true">
                     <javaresource classpath="@{sourcepath}" name="module-info.java" parentFirst="false"/>
+                    <filterchain>
+                        <stripjavacomments/>
                         <linecontainsregexp>
                             <regexp pattern="module .* \{"/>
                         </linecontainsregexp>
