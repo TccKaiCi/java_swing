@@ -15,8 +15,8 @@ public class RunnableDemo implements Runnable {
         this.threadName =threadName;
     }
 
-    public void playSound() {
-        String s = "C:/Users/HiamKaito/Desktop/Java/java_swing/JavaSwing/src/OneTwoThree/music.mp3";
+    public void playSound(String namepath) {
+        String s = "C:/Users/HiamKaito/Desktop/Java/java_swing/JavaSwing/src/OneTwoThree/" + namepath;
         try {
             FileInputStream fileInputStream = new FileInputStream(s);
             player = new Player(fileInputStream);
@@ -37,15 +37,23 @@ public class RunnableDemo implements Runnable {
         System.out.println("Running " + threadName);
         try {
             if (threadName.equalsIgnoreCase("Music")) {
+                String[] arrStr = new String[2];
+                int i = 0;
+                
+                arrStr[1] = "SONO CHINO SADAMEl.mp3";
+                arrStr[0] = "Golden Wind.mp3";
+                
                 do {
-                    playSound();
-                    Thread.sleep(500);
+                    playSound(arrStr[i]);
+//                    Thread.sleep(0);
+                    i++;
+                    if (i == 2) i =0;
                 } while ( player.isComplete() );
             }
             else {
+                Thread.sleep(5000);
                 GUI gui = new GUI();
                 gui.setVisible(true);
-                Thread.sleep(0);
             }
         } catch (InterruptedException e) {
             System.out.println("Thread " + threadName + " interrupted.");

@@ -1,6 +1,34 @@
 package OneTwoThree;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Random;
+import javax.swing.JOptionPane;
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
+
 public class GUI extends javax.swing.JFrame {
+
+    private int iHeal_1 = 460;
+    private int iHeal_2 = 460;
+    private int xHeal_1 = 20;
+
+    public void playSound(String namepath) {
+        String s = "C:/Users/HiamKaito/Desktop/Java/java_swing/JavaSwing/src/OneTwoThree/" + namepath;
+        try {
+            FileInputStream fileInputStream = new FileInputStream(s);
+            Player player = new Player(fileInputStream);
+            System.out.println("Song is playing...");
+            System.out.println(s);
+            player.play();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (JavaLayerException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
     public GUI() {
         initComponents();
@@ -15,6 +43,12 @@ public class GUI extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanelHeal_2 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        board_2 = new javax.swing.JLabel();
+        board_1 = new javax.swing.JLabel();
+        jLabel_BOARD2 = new javax.swing.JLabel();
+        cb_enemy = new javax.swing.JLabel();
+        cb_player = new javax.swing.JLabel();
         jLabel_you_bao = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel_you_keo = new javax.swing.JLabel();
@@ -96,21 +130,84 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jPanel5);
         jPanel5.setBounds(630, 70, 470, 20);
 
+        board_2.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        board_2.setForeground(new java.awt.Color(255, 255, 0));
+        board_2.setText("0");
+
+        board_1.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        board_1.setForeground(new java.awt.Color(255, 255, 0));
+        board_1.setText("0");
+
+        jLabel_BOARD2.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        jLabel_BOARD2.setForeground(new java.awt.Color(255, 255, 0));
+        jLabel_BOARD2.setText(":");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addComponent(board_1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addComponent(jLabel_BOARD2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(board_2)
+                .addGap(8, 8, 8))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(board_2)
+                    .addComponent(board_1)
+                    .addComponent(jLabel_BOARD2))
+                .addGap(0, 14, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(510, 50, 100, 70);
+
+        cb_enemy.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        cb_enemy.setForeground(new java.awt.Color(255, 255, 255));
+        cb_enemy.setText("Combo");
+        jPanel1.add(cb_enemy);
+        cb_enemy.setBounds(590, 130, 180, 60);
+
+        cb_player.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        cb_player.setForeground(new java.awt.Color(255, 255, 255));
+        cb_player.setText("Combo");
+        jPanel1.add(cb_player);
+        cb_player.setBounds(370, 130, 180, 60);
+
         jLabel_you_bao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/OneTwoThree/bao.png"))); // NOI18N
+        jLabel_you_bao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel_you_baoMouseReleased(evt);
+            }
+        });
         jPanel1.add(jLabel_you_bao);
         jLabel_you_bao.setBounds(150, 230, 100, 100);
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Enemy");
         jPanel1.add(jLabel9);
         jLabel9.setBounds(630, 20, 170, 60);
 
         jLabel_you_keo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/OneTwoThree/keo.png"))); // NOI18N
+        jLabel_you_keo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel_you_keoMousePressed(evt);
+            }
+        });
         jPanel1.add(jLabel_you_keo);
         jLabel_you_keo.setBounds(240, 350, 100, 100);
 
         jLabel_you_bua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/OneTwoThree/bua.png"))); // NOI18N
+        jLabel_you_bua.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel_you_buaMouseReleased(evt);
+            }
+        });
         jPanel1.add(jLabel_you_bua);
         jLabel_you_bua.setBounds(50, 350, 100, 100);
 
@@ -127,7 +224,6 @@ public class GUI extends javax.swing.JFrame {
         jLabel_enemy_keo.setBounds(820, 350, 100, 100);
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("You");
         jPanel1.add(jLabel8);
         jLabel8.setBounds(370, 20, 100, 60);
@@ -150,6 +246,133 @@ public class GUI extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel_you_baoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_you_baoMouseReleased
+        int iRes = rule("bao");
+        fight(iRes);
+        cb_player.setText("BAO");
+    }//GEN-LAST:event_jLabel_you_baoMouseReleased
+
+    private void jLabel_you_buaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_you_buaMouseReleased
+        int iRes = rule("bua");
+        fight(iRes);
+        cb_player.setText("BUA");
+    }//GEN-LAST:event_jLabel_you_buaMouseReleased
+
+    private void jLabel_you_keoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_you_keoMousePressed
+        int iRes = rule("keo");
+        fight(iRes);
+        cb_player.setText("KEO");
+    }//GEN-LAST:event_jLabel_you_keoMousePressed
+
+    /**
+     * Keo bua bao
+     *
+     * @param key ten loai dau vao
+     * @return 1 neu thang, 0 hoa, -1 thua
+     */
+    private int rule(String key) {
+        Random rand = new Random();
+        int iKey = rand.nextInt(3) + 1;
+        // 1 2 3 keo bua bao
+        switch (iKey) {
+            case 1://keo
+                cb_enemy.setText("KEO");
+                if (key.equalsIgnoreCase("bao") == true) {
+                    return 1;
+                } else {
+                    if (key.equalsIgnoreCase("keo") == true) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                }
+            case 2://bua
+                cb_enemy.setText("BUA");
+                if (key.equalsIgnoreCase("keo") == true) {
+                    return 1;
+                } else {
+                    if (key.equalsIgnoreCase("bua") == true) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                }
+            case 3://bao
+                cb_enemy.setText("BAO");
+                if (key.equalsIgnoreCase("bua") == true) {
+                    return 1;
+                } else {
+                    if (key.equalsIgnoreCase("bao") == true) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                }
+        }
+        return 0;
+    }
+
+    private void fight(int iKey) {
+        //460 20
+        //20 70
+        if (iKey == 1) {
+            // You win
+            System.out.println("Player thang");
+            iHeal_2 -= 50;
+            jPanelHeal_2.setSize(iHeal_2, 20);
+            playSound("Quack Sound Effect.mp3");
+        } else if (iKey == 0) {
+            //draw
+            System.out.println("Hoa nhau");
+        } else {
+            //You lose
+            System.out.println("PLayer Thua");
+            iHeal_1 -= 50;
+            jPanelHeal_1.setSize(iHeal_1, 20);
+            xHeal_1 += 50;
+            jPanelHeal_1.setLocation(xHeal_1, 70);
+            playSound("Roblox Death Sound - OOF - Sound Effect.mp3");
+        }
+
+        if (iHeal_1 < 0) {
+            System.out.println("");
+            playSound("Mario Dead - Sound Effects.mp3");
+            int re = JOptionPane.showConfirmDialog(null, "You lose.Reset?");
+            if (re != 1) {
+                reset();
+                int temp = Integer.parseInt(board_1.getText());
+                temp ++;
+                board_1.setText( String.valueOf( temp ));
+            } else {
+                System.exit(0);
+            }
+        }
+        if (iHeal_2 < 0) {
+            System.out.println("");
+            playSound("Victory sound effect.mp3");
+            int re = JOptionPane.showConfirmDialog(null, "You win.Reset?");
+            if (re != 1) {
+                reset();
+                int temp = Integer.parseInt(board_2.getText());
+                temp ++;
+                board_2.setText( String.valueOf( temp ));
+            } else {
+                System.exit(0);
+            }
+        }
+
+        //play sound
+        if (iHeal_1 < 50) {
+            playSound("That's a lot of damage.mp3");
+        }
+    }
+
+    public void reset() {
+        iHeal_1 = 460;
+        iHeal_2 = 460;
+        xHeal_1 = 20;
+    }
 
     /**
      * @param args the command line arguments
@@ -187,9 +410,14 @@ public class GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel board_1;
+    private javax.swing.JLabel board_2;
+    private javax.swing.JLabel cb_enemy;
+    private javax.swing.JLabel cb_player;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel_BOARD2;
     private javax.swing.JLabel jLabel_enemy_bao;
     private javax.swing.JLabel jLabel_enemy_bua;
     private javax.swing.JLabel jLabel_enemy_keo;
@@ -197,6 +425,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_you_bua;
     private javax.swing.JLabel jLabel_you_keo;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelHeal_1;
