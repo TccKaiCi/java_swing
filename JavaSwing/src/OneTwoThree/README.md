@@ -1,4 +1,4 @@
-# Making easy game java
+ # Making easy game java
 
 ## About
 I makeing a easy game OneTwoThree, in this project i used :
@@ -8,8 +8,8 @@ I makeing a easy game OneTwoThree, in this project i used :
   <li>Easy logic</li>
 </ul>  
 
-And libery: [playsound.jar](./../lib) <br>
-
+And new Sound libery: [playsound.jar](./../lib) <br>
+You can run [.exe file](./../../dist/) for game <br>
 ## Class 
 
 | Type Class | Name | Description |

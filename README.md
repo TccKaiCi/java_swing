@@ -7,7 +7,7 @@
 | [ChangeTheme](./JavaSwing/src/ChangeTheme) | 100% | Very Easy |
 | [Internationalization](./JavaSwing/src/Internationalization) | 100% | Easy |
 | [File](./JavaSwing/src/File) | 100% | Easy |
-| [OneTwoThree](./JavaSwing/src/OneTwoThree) | 50% | Normal |
+| [OneTwoThree](./JavaSwing/src/OneTwoThree) | 100% | Normal |
 | etc | |
 
 You can suggest your ideas for me to do at [discussions](https://github.com/HiamKaito/java_swing/discussions) !

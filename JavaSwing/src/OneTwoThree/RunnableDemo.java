@@ -40,8 +40,8 @@ public class RunnableDemo implements Runnable {
                 String[] arrStr = new String[2];
                 int i = 0;
                 
-                arrStr[1] = "SONO CHINO SADAMEl.mp3";
-                arrStr[0] = "Golden Wind.mp3";
+                arrStr[0] = "Every Jojo’s Bizarre Adventure Opening But With 8-Bit Music.mp3";
+                arrStr[1] = "Golden Wind.mp3";
                 
                 do {
                     playSound(arrStr[i]);
@@ -51,7 +51,7 @@ public class RunnableDemo implements Runnable {
                 } while ( player.isComplete() );
             }
             else {
-                Thread.sleep(5000);
+                Thread.sleep(0);
                 GUI gui = new GUI();
                 gui.setVisible(true);
             }
@@ -67,6 +67,11 @@ public class RunnableDemo implements Runnable {
             t = new Thread(this, threadName);
             t.start();
         }
+    }
+    
+    public void stop() {
+        System.out.println("Stopping music");
+        player.close();
     }
 
 }

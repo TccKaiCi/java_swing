@@ -3,6 +3,7 @@ package OneTwoThree;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Random;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
@@ -12,6 +13,8 @@ public class GUI extends javax.swing.JFrame {
     private int iHeal_1 = 460;
     private int iHeal_2 = 460;
     private int xHeal_1 = 20;
+    private boolean sound = true;
+    private RunnableDemo R;
 
     public void playSound(String namepath) {
         String s = "C:/Users/HiamKaito/Desktop/Java/java_swing/JavaSwing/src/OneTwoThree/" + namepath;
@@ -31,6 +34,9 @@ public class GUI extends javax.swing.JFrame {
     }
 
     public GUI() {
+        R = new RunnableDemo("Music");
+        R.start();
+
         initComponents();
     }
 
@@ -47,8 +53,10 @@ public class GUI extends javax.swing.JFrame {
         board_2 = new javax.swing.JLabel();
         board_1 = new javax.swing.JLabel();
         jLabel_BOARD2 = new javax.swing.JLabel();
-        cb_enemy = new javax.swing.JLabel();
-        cb_player = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jwhowin = new javax.swing.JLabel();
+        jLabel_enemy_turn = new javax.swing.JLabel();
+        jLabel_you_turn = new javax.swing.JLabel();
         jLabel_you_bao = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel_you_keo = new javax.swing.JLabel();
@@ -57,6 +65,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel_enemy_bua = new javax.swing.JLabel();
         jLabel_enemy_keo = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -167,17 +176,45 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jPanel2);
         jPanel2.setBounds(510, 50, 100, 70);
 
-        cb_enemy.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        cb_enemy.setForeground(new java.awt.Color(255, 255, 255));
-        cb_enemy.setText("Combo");
-        jPanel1.add(cb_enemy);
-        cb_enemy.setBounds(590, 130, 180, 60);
+        jwhowin.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        jwhowin.setForeground(new java.awt.Color(0, 0, 0));
+        jwhowin.setText("WHO");
 
-        cb_player.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        cb_player.setForeground(new java.awt.Color(255, 255, 255));
-        cb_player.setText("Combo");
-        jPanel1.add(cb_player);
-        cb_player.setBounds(370, 130, 180, 60);
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jwhowin, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 62, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jwhowin)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel3);
+        jPanel3.setBounds(420, 220, 300, 40);
+
+        jLabel_enemy_turn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/OneTwoThree/bao.png"))); // NOI18N
+        jLabel_enemy_turn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel_enemy_turnMouseReleased(evt);
+            }
+        });
+        jPanel1.add(jLabel_enemy_turn);
+        jLabel_enemy_turn.setBounds(660, 110, 100, 100);
+
+        jLabel_you_turn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/OneTwoThree/bao.png"))); // NOI18N
+        jLabel_you_turn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel_you_turnMouseReleased(evt);
+            }
+        });
+        jPanel1.add(jLabel_you_turn);
+        jLabel_you_turn.setBounds(360, 120, 100, 100);
 
         jLabel_you_bao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/OneTwoThree/bao.png"))); // NOI18N
         jLabel_you_bao.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -228,6 +265,16 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jLabel8);
         jLabel8.setBounds(370, 20, 100, 60);
 
+        jButton1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        jButton1.setText("MUSIC OFF");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1);
+        jButton1.setBounds(440, 310, 240, 70);
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/OneTwoThree/bg.jpg"))); // NOI18N
         jPanel1.add(jLabel1);
         jLabel1.setBounds(0, 0, 1140, 500);
@@ -250,20 +297,51 @@ public class GUI extends javax.swing.JFrame {
     private void jLabel_you_baoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_you_baoMouseReleased
         int iRes = rule("bao");
         fight(iRes);
-        cb_player.setText("BAO");
     }//GEN-LAST:event_jLabel_you_baoMouseReleased
 
     private void jLabel_you_buaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_you_buaMouseReleased
         int iRes = rule("bua");
         fight(iRes);
-        cb_player.setText("BUA");
     }//GEN-LAST:event_jLabel_you_buaMouseReleased
 
     private void jLabel_you_keoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_you_keoMousePressed
         int iRes = rule("keo");
         fight(iRes);
-        cb_player.setText("KEO");
     }//GEN-LAST:event_jLabel_you_keoMousePressed
+
+    private void jLabel_enemy_turnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_enemy_turnMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel_enemy_turnMouseReleased
+
+    private void jLabel_you_turnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_you_turnMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel_you_turnMouseReleased
+
+    public boolean flagMusic = true;
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if (flagMusic) {
+            R.stop();
+            flagMusic = !flagMusic;
+            jButton1.setText("MUSIC ON");
+        }
+        else {
+            R = new RunnableDemo("Music");
+            R.start();
+            flagMusic = !flagMusic;
+            jButton1.setText("MUSIC OFF");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public void setIconTurn(String namePlayer, String nameTurn) {
+        if (namePlayer.equalsIgnoreCase("You") == true) {
+            jLabel_you_turn.setIcon(new ImageIcon(
+                    getClass().getResource("/OneTwoThree/" + nameTurn + ".png")));
+        } else {
+            jLabel_enemy_turn.setIcon(new ImageIcon(
+                    getClass().getResource("/OneTwoThree/" + nameTurn + ".png")));
+        }
+    }
 
     /**
      * Keo bua bao
@@ -277,36 +355,42 @@ public class GUI extends javax.swing.JFrame {
         // 1 2 3 keo bua bao
         switch (iKey) {
             case 1://keo
-                cb_enemy.setText("KEO");
+                setIconTurn("Enemy", "keo");
                 if (key.equalsIgnoreCase("bao") == true) {
-                    return 1;
+                    setIconTurn("You", "bao");
+                    return -1;
                 } else {
                     if (key.equalsIgnoreCase("keo") == true) {
+                        setIconTurn("You", "keo");
                         return 0;
                     } else {
-                        return -1;
+                        return 1;
                     }
                 }
             case 2://bua
-                cb_enemy.setText("BUA");
+                setIconTurn("Enemy", "bua");
                 if (key.equalsIgnoreCase("keo") == true) {
-                    return 1;
+                    setIconTurn("You", "keo");
+                    return -1;
                 } else {
                     if (key.equalsIgnoreCase("bua") == true) {
+                        setIconTurn("You", "bua");
                         return 0;
                     } else {
-                        return -1;
+                        return 1;
                     }
                 }
             case 3://bao
-                cb_enemy.setText("BAO");
+                setIconTurn("Enemy", "bao");
                 if (key.equalsIgnoreCase("bua") == true) {
-                    return 1;
+                    setIconTurn("You", "bua");
+                    return -1;
                 } else {
                     if (key.equalsIgnoreCase("bao") == true) {
+                        setIconTurn("You", "bao");
                         return 0;
                     } else {
-                        return -1;
+                        return 1;
                     }
                 }
         }
@@ -318,21 +402,24 @@ public class GUI extends javax.swing.JFrame {
         //20 70
         if (iKey == 1) {
             // You win
+            jwhowin.setText("YOU WIN");
             System.out.println("Player thang");
             iHeal_2 -= 50;
             jPanelHeal_2.setSize(iHeal_2, 20);
-            playSound("Quack Sound Effect.mp3");
+//            playSound("Quack Sound Effect.mp3");
         } else if (iKey == 0) {
             //draw
+            jwhowin.setText("DRAW");
             System.out.println("Hoa nhau");
         } else {
             //You lose
+            jwhowin.setText("ENEMY WIN");
             System.out.println("PLayer Thua");
             iHeal_1 -= 50;
             jPanelHeal_1.setSize(iHeal_1, 20);
             xHeal_1 += 50;
             jPanelHeal_1.setLocation(xHeal_1, 70);
-            playSound("Roblox Death Sound - OOF - Sound Effect.mp3");
+//            playSound("Roblox Death Sound - OOF - Sound Effect.mp3");
         }
 
         if (iHeal_1 < 0) {
@@ -341,9 +428,9 @@ public class GUI extends javax.swing.JFrame {
             int re = JOptionPane.showConfirmDialog(null, "You lose.Reset?");
             if (re != 1) {
                 reset();
-                int temp = Integer.parseInt(board_1.getText());
-                temp ++;
-                board_1.setText( String.valueOf( temp ));
+                int temp = Integer.parseInt(board_2.getText());
+                temp++;
+                board_2.setText(String.valueOf(temp));
             } else {
                 System.exit(0);
             }
@@ -354,17 +441,18 @@ public class GUI extends javax.swing.JFrame {
             int re = JOptionPane.showConfirmDialog(null, "You win.Reset?");
             if (re != 1) {
                 reset();
-                int temp = Integer.parseInt(board_2.getText());
-                temp ++;
-                board_2.setText( String.valueOf( temp ));
+                int temp = Integer.parseInt(board_1.getText());
+                temp++;
+                board_1.setText(String.valueOf(temp));
             } else {
                 System.exit(0);
             }
         }
 
         //play sound
-        if (iHeal_1 < 50) {
+        if (iHeal_1 < 50 && sound) {
             playSound("That's a lot of damage.mp3");
+            sound = !sound;
         }
     }
 
@@ -372,6 +460,11 @@ public class GUI extends javax.swing.JFrame {
         iHeal_1 = 460;
         iHeal_2 = 460;
         xHeal_1 = 20;
+
+        jPanelHeal_1.setSize(460, 20);
+        jPanelHeal_2.setSize(460, 20);
+        jPanelHeal_1.setLocation(20, 70);
+        sound = !sound;
     }
 
     /**
@@ -412,8 +505,7 @@ public class GUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel board_1;
     private javax.swing.JLabel board_2;
-    private javax.swing.JLabel cb_enemy;
-    private javax.swing.JLabel cb_player;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -421,14 +513,18 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_enemy_bao;
     private javax.swing.JLabel jLabel_enemy_bua;
     private javax.swing.JLabel jLabel_enemy_keo;
+    private javax.swing.JLabel jLabel_enemy_turn;
     private javax.swing.JLabel jLabel_you_bao;
     private javax.swing.JLabel jLabel_you_bua;
     private javax.swing.JLabel jLabel_you_keo;
+    private javax.swing.JLabel jLabel_you_turn;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelHeal_1;
     private javax.swing.JPanel jPanelHeal_2;
+    private javax.swing.JLabel jwhowin;
     // End of variables declaration//GEN-END:variables
 }
