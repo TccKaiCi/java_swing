@@ -9,7 +9,7 @@ I makeing a easy game OneTwoThree, in this project i used :
 </ul>  
 
 And new Sound libery: [playsound.jar](./../lib) <br>
-You can run [.exe file](./../../dist/) for game <br>
+You can run [.exe file](./../../Run%20app/OneTwoThree) for game <br>
 ## Class 
 
 | Type Class | Name | Description |
