@@ -9,7 +9,7 @@ I makeing a easy game TicTacToe, in this project i used :
 </ul>  
 
 And new Sound libery: [playsound.jar](./../lib) <br>
-You can run [.exe file]((./../../Run%20app/TicTacToe) for game <br>
+You can run [.exe file](./../../Run%20app/TicTacToe) for game <br>
 ## Class 
 
 | Type Class | Name | Description |
