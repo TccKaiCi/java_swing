@@ -1,10 +1,23 @@
 package TicTacToe;
 
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.*;
+
 public class Game extends javax.swing.JFrame {
 
+    public void init() {
+        arrIntBoard = new int[3][3];
+        arrBtnBoard = new JButton[3][3];
+    }
+
     public Game() {
+        init();
         initComponents();
-        
+
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 formMousePressed(evt);
@@ -28,6 +41,7 @@ public class Game extends javax.swing.JFrame {
         lblSound = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        pnlBoard = createBoardGame();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -68,15 +82,36 @@ public class Game extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
+        pnlBoard.setBackground(new java.awt.Color(225, 225, 225));
+        pnlBoard.setToolTipText("");
+        pnlBoard.setPreferredSize(new java.awt.Dimension(300, 300));
+
+        javax.swing.GroupLayout pnlBoardLayout = new javax.swing.GroupLayout(pnlBoard);
+        pnlBoard.setLayout(pnlBoardLayout);
+        pnlBoardLayout.setHorizontalGroup(
+            pnlBoardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 284, Short.MAX_VALUE)
+        );
+        pnlBoardLayout.setVerticalGroup(
+            pnlBoardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 277, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(59, Short.MAX_VALUE)
+                .addComponent(pnlBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(117, Short.MAX_VALUE)
+                .addComponent(pnlBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel1.add(jPanel3);
@@ -142,21 +177,63 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JLabel lblAvatar;
     private javax.swing.JLabel lblBack;
     private javax.swing.JLabel lblSound;
+    private javax.swing.JPanel pnlBoard;
     // End of variables declaration//GEN-END:variables
 
     int x_Mouse, y_Mouse;
-    
-    private void formMousePressed(java.awt.event.MouseEvent evt) {                                  
-        // TODO add your handling code here:
-         x_Mouse = evt.getX();
-         y_Mouse = evt.getY();
-    }                                 
+    int[][] arrIntBoard;
+    JButton[][] arrBtnBoard;
 
-    private void formMouseDragged(java.awt.event.MouseEvent evt) {                                  
+    private void formMousePressed(java.awt.event.MouseEvent evt) {
+        // TODO add your handling code here:
+        x_Mouse = evt.getX();
+        y_Mouse = evt.getY();
+    }
+
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
-        
+
         setLocation(x - x_Mouse, y - y_Mouse);
-    }    
+    }
+
+    private JPanel createBoardGame() {
+        JPanel panel = new JPanel();
+
+        panel.setSize(350, 350);
+        panel.setLayout(null);
+
+        int xPos = 10, yPos = 10;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                arrBtnBoard[i][j] = new JButton();
+
+                System.out.println("Create new btn " + i + " " + j);
+
+                arrBtnBoard[i][j].setName(i + " " + j);
+                arrBtnBoard[i][j].setSize(80, 80);
+                arrBtnBoard[i][j].setLocation(xPos, yPos);
+
+                arrBtnBoard[i][j].addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent me) {
+                        JButton src = (JButton) me.getSource();
+
+                        System.out.println(src.getName() + " is Pressed");
+
+                        src.setText("X");
+                        src.setEnabled(false);
+                    }
+                });
+
+                xPos += 90;
+                panel.add(arrBtnBoard[i][j]);
+            }
+            xPos = 10;
+            yPos += 90;
+        }
+
+        return panel;
+    }
 }
