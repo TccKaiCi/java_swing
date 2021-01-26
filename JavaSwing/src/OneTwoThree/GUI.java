@@ -1,5 +1,6 @@
 package OneTwoThree;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Random;
@@ -17,7 +18,8 @@ public class GUI extends javax.swing.JFrame {
     private RunnableDemo R;
 
     public void playSound(String namepath) {
-        String s = "C:/Users/HiamKaito/Desktop/Java/java_swing/JavaSwing/src/OneTwoThree/" + namepath;
+        File file = new File("Music/" + namepath);
+        String s = file.getAbsolutePath();
         try {
             FileInputStream fileInputStream = new FileInputStream(s);
             Player player = new Player(fileInputStream);
@@ -324,8 +326,7 @@ public class GUI extends javax.swing.JFrame {
             R.stop();
             flagMusic = !flagMusic;
             jButton1.setText("MUSIC ON");
-        }
-        else {
+        } else {
             R = new RunnableDemo("Music");
             R.start();
             flagMusic = !flagMusic;
@@ -364,6 +365,7 @@ public class GUI extends javax.swing.JFrame {
                         setIconTurn("You", "keo");
                         return 0;
                     } else {
+                        setIconTurn("You", "bua");
                         return 1;
                     }
                 }
@@ -377,6 +379,7 @@ public class GUI extends javax.swing.JFrame {
                         setIconTurn("You", "bua");
                         return 0;
                     } else {
+                        setIconTurn("You", "bao");
                         return 1;
                     }
                 }
@@ -390,6 +393,7 @@ public class GUI extends javax.swing.JFrame {
                         setIconTurn("You", "bao");
                         return 0;
                     } else {
+                        setIconTurn("You", "keo");
                         return 1;
                     }
                 }
@@ -432,7 +436,9 @@ public class GUI extends javax.swing.JFrame {
                 temp++;
                 board_2.setText(String.valueOf(temp));
             } else {
-                System.exit(0);
+                this.setVisible(false);
+                Home home = new Home();
+                home.setVisible(true);
             }
         }
         if (iHeal_2 < 0) {
@@ -445,7 +451,9 @@ public class GUI extends javax.swing.JFrame {
                 temp++;
                 board_1.setText(String.valueOf(temp));
             } else {
-                System.exit(0);
+                this.setVisible(false);
+                Home home = new Home();
+                home.setVisible(true);
             }
         }
 

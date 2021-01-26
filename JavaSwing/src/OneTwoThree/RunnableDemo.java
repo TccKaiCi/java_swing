@@ -1,5 +1,6 @@
 package OneTwoThree;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javazoom.jl.decoder.JavaLayerException;
@@ -16,7 +17,8 @@ public class RunnableDemo implements Runnable {
     }
 
     public void playSound(String namepath) {
-        String s = "C:/Users/HiamKaito/Desktop/Java/java_swing/JavaSwing/src/OneTwoThree/" + namepath;
+        File file = new File("Music/" + namepath);
+        String s = file.getAbsolutePath();
         try {
             FileInputStream fileInputStream = new FileInputStream(s);
             player = new Player(fileInputStream);
@@ -40,7 +42,7 @@ public class RunnableDemo implements Runnable {
                 String[] arrStr = new String[2];
                 int i = 0;
                 
-                arrStr[0] = "Every Jojo’s Bizarre Adventure Opening But With 8-Bit Music.mp3";
+                arrStr[0] = "jojo.mp3";
                 arrStr[1] = "Golden Wind.mp3";
                 
                 do {
