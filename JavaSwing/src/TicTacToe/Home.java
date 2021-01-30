@@ -2,9 +2,16 @@ package TicTacToe;
 
 public class Home extends javax.swing.JFrame {
 
+    public void init() {
+        lblAvatar.setIcon(new javax.swing.ImageIcon
+        (getClass().getResource("/TicTacToe/img/Avatar/"+ Memory.iconName +".png")));
+        
+        jLabel1.setText(Memory.Player_Name);
+    }
+    
     public Home() {
         initComponents();
-        
+        init();
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 formMousePressed(evt);

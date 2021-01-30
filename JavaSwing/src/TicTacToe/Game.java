@@ -5,18 +5,34 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Random;
 import javax.swing.*;
 
 public class Game extends javax.swing.JFrame {
 
+//    create new 
     public void init() {
         arrIntBoard = new int[3][3];
         arrBtnBoard = new JButton[3][3];
+
+//        add normal value for array integer
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                arrIntBoard[i][j] = 0;
+            }
+        }
+    }
+
+    public void init2() {
+        lblAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/TicTacToe/img/Avatar/" + Memory.iconName + ".png")));
+
+        jLabel1.setText(Memory.Player_Name);
     }
 
     public Game() {
         init();
         initComponents();
+        init2();
 
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -42,6 +58,9 @@ public class Game extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         pnlBoard = createBoardGame();
+        lblPlayerScore = new javax.swing.JLabel();
+        lblBotScore = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -60,6 +79,9 @@ public class Game extends javax.swing.JFrame {
 
         lblBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/TicTacToe/img/Black Exit.png"))); // NOI18N
         lblBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblBackMousePressed(evt);
+            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 lblBackMouseReleased(evt);
             }
@@ -97,19 +119,45 @@ public class Game extends javax.swing.JFrame {
             .addGap(0, 277, Short.MAX_VALUE)
         );
 
+        lblPlayerScore.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        lblPlayerScore.setForeground(new java.awt.Color(0, 0, 0));
+        lblPlayerScore.setText("0");
+
+        lblBotScore.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        lblBotScore.setForeground(new java.awt.Color(0, 0, 0));
+        lblBotScore.setText("0");
+
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText(":");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(59, Short.MAX_VALUE)
-                .addComponent(pnlBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(pnlBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(lblPlayerScore)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblBotScore)
+                        .addGap(143, 143, 143))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(117, Short.MAX_VALUE)
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPlayerScore)
+                    .addComponent(lblBotScore)
+                    .addComponent(jLabel4))
+                .addGap(36, 36, 36)
                 .addComponent(pnlBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -129,6 +177,10 @@ public class Game extends javax.swing.JFrame {
         Home home = new Home();
         home.setVisible(true);
     }//GEN-LAST:event_lblBackMouseReleased
+
+    private void lblBackMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBackMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblBackMousePressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -171,11 +223,14 @@ public class Game extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblAvatar;
     private javax.swing.JLabel lblBack;
+    private javax.swing.JLabel lblBotScore;
+    private javax.swing.JLabel lblPlayerScore;
     private javax.swing.JLabel lblSound;
     private javax.swing.JPanel pnlBoard;
     // End of variables declaration//GEN-END:variables
@@ -198,6 +253,7 @@ public class Game extends javax.swing.JFrame {
         setLocation(x - x_Mouse, y - y_Mouse);
     }
 
+//    Create play game button group
     private JPanel createBoardGame() {
         JPanel panel = new JPanel();
 
@@ -205,6 +261,8 @@ public class Game extends javax.swing.JFrame {
         panel.setLayout(null);
 
         int xPos = 10, yPos = 10;
+
+//        Array[3][3]
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 arrBtnBoard[i][j] = new JButton();
@@ -214,16 +272,20 @@ public class Game extends javax.swing.JFrame {
                 arrBtnBoard[i][j].setName(i + " " + j);
                 arrBtnBoard[i][j].setSize(80, 80);
                 arrBtnBoard[i][j].setLocation(xPos, yPos);
+                arrBtnBoard[i][j].setRequestFocusEnabled(false);
 
+//                Add action mouse Click
                 arrBtnBoard[i][j].addMouseListener(new MouseAdapter() {
                     @Override
-                    public void mouseClicked(MouseEvent me) {
+                    public void mouseReleased(MouseEvent me) {
                         JButton src = (JButton) me.getSource();
+                        String[] s = src.getName().split(" ");
 
-                        System.out.println(src.getName() + " is Pressed");
-
-                        src.setText("X");
-                        src.setEnabled(false);
+                        if (src.isEnabled() == false) {
+                            System.out.println("Loi");
+                        } else {
+                            btnClick(Integer.parseInt(s[0]), Integer.parseInt(s[1]), 1);
+                        }
                     }
                 });
 
@@ -235,5 +297,358 @@ public class Game extends javax.swing.JFrame {
         }
 
         return panel;
+    }
+
+    public void btnClick(int xPos, int yPos, int iValue) {
+        System.out.println("x = " + xPos + " and y = " + yPos + " is Pressed");
+
+//        number 1 for player 1
+//        number 2 for player 2 or bot
+        if (iValue == 1) {
+            arrBtnBoard[xPos][yPos].setText("X");
+            setDataSelected(xPos, yPos, 1);
+
+//        display arr;
+            displayArrInt();
+        }
+        arrBtnBoard[xPos][yPos].setEnabled(false);
+
+//        check win
+        int iCheck = checkWin();
+        if (iCheck == 1 || iCheck == 2) {
+            displayWinner(iCheck);
+        } else {
+
+            //        Full??
+            if (isFull()) {
+                int re = JOptionPane.showConfirmDialog(null, "DRAW");
+                if (re != 1) {
+                    reset();
+                } else {
+                    this.setVisible(false);
+                    Home home = new Home();
+                    home.setVisible(true);
+                }
+            } else {
+                botGo();
+                iCheck = checkWin();
+                if (iCheck == 1 || iCheck == 2) {
+                    displayWinner(iCheck);
+                }
+//        display arr;
+                displayArrInt();
+            }
+        }
+    }
+
+    /**
+     * Set data to array integer
+     *
+     * @param xPos
+     * @param yPos
+     * @param iValue
+     */
+    public void setDataSelected(int xPos, int yPos, int iValue) {
+        arrIntBoard[xPos][yPos] = iValue;
+    }
+
+    public void botGo() {
+        if (botAtt() != 0) {
+            System.out.println("Bot Attack");
+        } else if (botDef() != 0) {
+            System.out.println("Bot Defend");
+        } else {
+            System.out.println("Bot go to random move");
+            botRandom();
+        }
+    }
+
+    public int botAtt() {
+//        check by row
+        for (int i = 0; i < 3; i++) {
+            int a = arrIntBoard[i][0];
+            int b = arrIntBoard[i][1];
+            int c = arrIntBoard[i][2];
+
+            if (a == 1 || b == 1 || c == 1) {
+                System.out.println("Bot bi chan");
+            } else if ((a / 2) + (b / 2) + (c / 2) == 2) {
+                botRandomTurn(i, 0);
+                botRandomTurn(i, 1);
+                botRandomTurn(i, 2);
+
+                return 1;
+            }
+        }
+
+//        check by col
+        for (int j = 0; j < 3; j++) {
+            int a = arrIntBoard[0][j];
+            int b = arrIntBoard[1][j];
+            int c = arrIntBoard[2][j];
+
+            if (a == 1 || b == 1 || c == 1) {
+                System.out.println("Bot bi chan");
+            } else if ((a / 2) + (b / 2) + (c / 2) == 2
+                    && a != 1 && b != 1 && c != 1) {
+                botRandomTurn(0, j);
+                botRandomTurn(1, j);
+                botRandomTurn(2, j);
+
+                return 1;
+            }
+        }
+
+//        check another
+        if ((arrIntBoard[0][0] / 2) + (arrIntBoard[1][1] / 2)
+                + (arrIntBoard[2][2] / 2) == 4) {
+
+            if (arrIntBoard[0][0] == 1
+                    || arrIntBoard[1][1] == 1
+                    || arrIntBoard[2][2] == 1) {
+                botRandomTurn(0, 0);
+                botRandomTurn(1, 1);
+                botRandomTurn(2, 2);
+                return 1;
+            }
+        }
+
+        if ((arrIntBoard[0][2] / 2) + (arrIntBoard[1][1] / 2)
+                + (arrIntBoard[2][0] / 2) == 4) {
+
+            if (arrIntBoard[0][2] == 1
+                    || arrIntBoard[1][1] == 1
+                    || arrIntBoard[2][0] == 1) {
+                botRandomTurn(0, 2);
+                botRandomTurn(1, 1);
+                botRandomTurn(2, 0);
+                return 1;
+            }
+        }
+
+        return 0;
+    }
+
+    public int botDef() {
+//        check by row
+        for (int i = 0; i < 3; i++) {
+            int a = arrIntBoard[i][0];
+            int b = arrIntBoard[i][1];
+            int c = arrIntBoard[i][2];
+
+            if ((a & 2) + (b % 2) + (c % 2) == 2) {
+                if (a == 2 || b == 2 || c == 2) {
+                    System.out.println("Da bi chan");
+                    break;
+                }
+                if (a == 0) {
+                    botRandomTurn(i, 0);
+                }
+                if (b == 0) {
+                    botRandomTurn(i, 1);
+                }
+                if (c == 0) {
+                    botRandomTurn(i, 2);
+                }
+
+                return 1;
+            }
+        }
+
+//        check by col
+        for (int j = 0; j < 3; j++) {
+            int a = arrIntBoard[0][j];
+            int b = arrIntBoard[1][j];
+            int c = arrIntBoard[2][j];
+
+            if ((a % 2) + (b % 2) + (c % 2) == 2) {
+                if (a == 2 || b == 2 || c == 2) {
+                    System.out.println("Da bi chan");
+                    break;
+                }
+                if (a == 0) {
+                    botRandomTurn(0, j);
+                }
+                if (b == 0) {
+                    botRandomTurn(1, j);
+                }
+                if (c == 0) {
+                    botRandomTurn(2, j);
+                }
+
+                return 1;
+            }
+        }
+
+//        check another
+        if ((arrIntBoard[0][0] % 2) + (arrIntBoard[1][1] % 2)
+                + (arrIntBoard[2][2] % 2) == 2) {
+
+            if (arrIntBoard[0][0] == 2 || arrIntBoard[1][1] == 2 || arrIntBoard[2][2] == 2) {
+                System.out.println("Da bi chan");
+            } else {
+                if (arrIntBoard[0][0] == 0) {
+                    botRandomTurn(0, 0);
+                }
+                if (arrIntBoard[1][1] == 0) {
+                    botRandomTurn(1, 1);
+                }
+                if (arrIntBoard[2][2] == 0) {
+                    botRandomTurn(2, 2);
+                }
+                return 1;
+            }
+        }
+
+        if ((arrIntBoard[0][2] % 2) + (arrIntBoard[1][1] % 2)
+                + (arrIntBoard[2][0] % 2) == 2) {
+            if (arrIntBoard[2][0] == 2 || arrIntBoard[1][1] == 2 || arrIntBoard[0][2] == 2) {
+                System.out.println("Da bi chan");
+            } else {
+                if (arrIntBoard[0][2] == 0) {
+                    botRandomTurn(0, 2);
+                }
+                if (arrIntBoard[1][1] == 0) {
+                    botRandomTurn(1, 1);
+                }
+                if (arrIntBoard[2][0] == 0) {
+                    botRandomTurn(2, 0);
+                }
+                return 1;
+            }
+        }
+
+        return 0;
+    }
+
+    public void botRandom() {
+        boolean flag = true;
+        Random rand = new Random();
+
+        do {
+            int i = rand.nextInt(3);
+            int j = rand.nextInt(3);
+
+            if (arrIntBoard[i][j] == 0) {
+                arrBtnBoard[i][j].setText("O");
+                arrBtnBoard[i][j].setEnabled(false);
+                setDataSelected(i, j, 2);
+                flag = false;
+            }
+        } while (flag == true);
+    }
+
+    public void botRandomTurn(int xPos, int yPos) {
+        arrIntBoard[xPos][yPos] = 2;
+
+        arrBtnBoard[xPos][yPos].setText("O");
+        arrBtnBoard[xPos][yPos].setEnabled(false);
+    }
+
+    /**
+     * @return 0 if no one win <br> 1 if player 1 win <br> 2 if player 2 win
+     */
+    public int checkWin() {
+//        check by col
+        for (int i = 0; i < 3; i++) {
+            if (arrIntBoard[i][0] == arrIntBoard[i][1]
+                    && arrIntBoard[i][1] == arrIntBoard[i][2] && arrIntBoard[i][2] != 0) {
+                return arrIntBoard[i][0];
+            }
+        }
+
+//        check by col
+        for (int j = 0; j < 3; j++) {
+            if (arrIntBoard[0][j] == arrIntBoard[1][j]
+                    && arrIntBoard[1][j] == arrIntBoard[2][j] && arrIntBoard[2][j] != 0) {
+                return arrIntBoard[0][j];
+            }
+        }
+
+//        check another
+        if (arrIntBoard[0][0] == arrIntBoard[1][1]
+                && arrIntBoard[1][1] == arrIntBoard[2][2] && arrIntBoard[2][2] != 0) {
+            return arrIntBoard[0][0];
+        }
+
+        if (arrIntBoard[0][2] == arrIntBoard[1][1]
+                && arrIntBoard[1][1] == arrIntBoard[2][0] && arrIntBoard[2][0] != 0) {
+            return arrIntBoard[0][2];
+        }
+        return 0;
+
+    }
+
+    public void displayWinner(int iCheck) {
+        String s = "";
+        if (iCheck == 1) {
+            int temp = Integer.parseInt(lblPlayerScore.getText());
+
+            s = Memory.Player_Name + " win";
+            System.out.println(s);
+            temp++;
+            lblPlayerScore.setText(String.valueOf(temp));
+        } else {
+            int temp = Integer.parseInt(lblBotScore.getText());
+
+            s = "Bot win";
+            System.out.println(s);
+            temp++;
+            lblBotScore.setText(String.valueOf(temp));
+        }
+        int re = JOptionPane.showConfirmDialog(null, s + " ,Reset?");
+        if (re != 1) {
+            reset();
+        } else {
+            this.setVisible(false);
+            Home home = new Home();
+            home.setVisible(true);
+        }
+    }
+
+    public void displayArrInt() {
+        System.out.println("Array");
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                System.out.printf(arrIntBoard[i][j] + " ");
+            }
+            System.out.println("");
+        }
+    }
+
+    public void reset() {
+//        rest button display
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                arrBtnBoard[i][j].setText("");
+                arrBtnBoard[i][j].setEnabled(true);
+            }
+        }
+
+//        reset array
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                arrIntBoard[i][j] = 0;
+            }
+        }
+
+        System.out.println("Re-new succes");
+    }
+
+    public boolean isFull() {
+        int count = 0;
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (arrIntBoard[i][j] != 0) {
+                    count++;
+                }
+            }
+        }
+
+        if (count == 9) {
+            return true;
+        }
+        return false;
     }
 }
