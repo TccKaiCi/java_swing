@@ -1,8 +1,11 @@
 package TicTacToe;
 
 import OneTwoThree.*;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
@@ -11,13 +14,14 @@ public class Runnable_Song implements Runnable {
     private Thread t;
     private String threadName;
     Player player;
-    
+
     public Runnable_Song(String threadName) {
-        this.threadName =threadName;
+        this.threadName = threadName;
     }
 
     public void playSound(String namepath) {
-        String s = "C:/Users/HiamKaito/Desktop/Java/java_swing/JavaSwing/src/OneTwoThree/" + namepath;
+        File file = new File("Music/" + namepath);
+        String s = file.getAbsolutePath();
         try {
             FileInputStream fileInputStream = new FileInputStream(s);
             player = new Player(fileInputStream);
@@ -38,23 +42,23 @@ public class Runnable_Song implements Runnable {
         System.out.println("Running " + threadName);
         try {
             if (threadName.equalsIgnoreCase("Music")) {
-                String[] arrStr = new String[2];
-                int i = 0;
+                String arrStr = "jojo.mp3";
                 
-                arrStr[0] = "Every Jojo’s Bizarre Adventure Opening But With 8-Bit Music.mp3";
-                arrStr[1] = "Golden Wind.mp3";
-                
-                do {
-                    playSound(arrStr[i]);
-//                    Thread.sleep(0);
-                    i++;
-                    if (i == 2) i =0;
-                } while ( player.isComplete() );
-            }
-            else {
                 Thread.sleep(0);
-                GUI gui = new GUI();
-                gui.setVisible(true);
+                do {
+                    playSound(arrStr);
+                } while (player.isComplete());
+                
+            } 
+            if (threadName.equalsIgnoreCase("Home")){
+                Thread.sleep(0);
+                Home home = new Home();
+                home.setVisible(true);
+            }
+            if (threadName.equalsIgnoreCase("Game")){
+                Thread.sleep(0);
+                Game game = new Game();
+                game.setVisible(true);
             }
         } catch (InterruptedException e) {
             System.out.println("Thread " + threadName + " interrupted.");
@@ -69,10 +73,10 @@ public class Runnable_Song implements Runnable {
             t.start();
         }
     }
-    
+
     public void stop() {
         System.out.println("Stopping music");
         player.close();
     }
-
+    
 }

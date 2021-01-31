@@ -12,5 +12,7 @@ public class Memory {
     static String iconName = "boy 1";
     
 //    system 
-    static BGSound bgSound;
+    static Runnable_Song bgSong;
+    static boolean playSong = true;
+    static String version = "Version 1.2";
 }

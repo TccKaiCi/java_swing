@@ -1,6 +1,6 @@
 package TicTacToe;
 
-public class Mult_Player extends javax.swing.JFrame {
+public class Host extends javax.swing.JFrame {
 
     public void init() {
         lblAvatar.setIcon(new javax.swing.ImageIcon(
@@ -9,11 +9,11 @@ public class Mult_Player extends javax.swing.JFrame {
 
         jLabel1.setText(Memory.Player_Name);
     }
-    
-    public Mult_Player() {
+
+    public Host() {
         initComponents();
         init();
-        
+
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 formMousePressed(evt);
@@ -36,10 +36,11 @@ public class Mult_Player extends javax.swing.JFrame {
         lblBack = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        btnInvate1 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
         btnInvate = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        lblAvatar1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnInvate2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -69,60 +70,57 @@ public class Mult_Player extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("PLAYER NAME");
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(130, 30, 174, 40);
+        jLabel1.setBounds(126, 6, 174, 40);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 400, 100);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel5.setBackground(new java.awt.Color(250, 160, 100));
-        jPanel5.setForeground(new java.awt.Color(51, 255, 255));
-        jPanel5.setLayout(null);
-
-        btnInvate1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        btnInvate1.setText("JOIN");
-        btnInvate1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInvate1ActionPerformed(evt);
-            }
-        });
-        jPanel5.add(btnInvate1);
-        btnInvate1.setBounds(30, 20, 280, 63);
+        btnInvate.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        btnInvate.setText("ACCEPT");
 
         jPanel4.setBackground(new java.awt.Color(250, 160, 100));
         jPanel4.setForeground(new java.awt.Color(51, 255, 255));
         jPanel4.setLayout(null);
 
-        btnInvate.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        btnInvate.setText("HOST");
-        btnInvate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInvateActionPerformed(evt);
-            }
-        });
-        jPanel4.add(btnInvate);
-        btnInvate.setBounds(30, 20, 280, 63);
+        lblAvatar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/TicTacToe/img/Avatar/boy 2.png"))); // NOI18N
+        jPanel4.add(lblAvatar1);
+        lblAvatar1.setBounds(0, 0, 120, 100);
+
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("PLAYER NAME");
+        jPanel4.add(jLabel2);
+        jLabel2.setBounds(140, 30, 180, 40);
+
+        btnInvate2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        btnInvate2.setText("DENY");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(28, 28, 28)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(btnInvate, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnInvate2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(64, 64, 64)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnInvate, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnInvate2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(181, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel3);
@@ -137,21 +135,9 @@ public class Mult_Player extends javax.swing.JFrame {
 
     private void lblBackMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBackMouseReleased
         this.setVisible(false);
-        Home home = new Home();
-        home.setVisible(true);
+        Mult_Player mult = new Mult_Player();
+        mult.setVisible(true);
     }//GEN-LAST:event_lblBackMouseReleased
-
-    private void btnInvateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInvateActionPerformed
-        this.setVisible(false);
-        Host host = new Host();
-        host.setVisible(true);
-    }//GEN-LAST:event_btnInvateActionPerformed
-
-    private void btnInvate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInvate1ActionPerformed
-        this.setVisible(false);
-        Join join = new Join();
-        join.setVisible(true);
-    }//GEN-LAST:event_btnInvate1ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -167,14 +153,18 @@ public class Mult_Player extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Mult_Player.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Host.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Mult_Player.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Host.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Mult_Player.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Host.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Mult_Player.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Host.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -183,37 +173,38 @@ public class Mult_Player extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Mult_Player().setVisible(true);
+                new Host().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInvate;
-    private javax.swing.JButton btnInvate1;
+    private javax.swing.JButton btnInvate2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel lblAvatar;
+    private javax.swing.JLabel lblAvatar1;
     private javax.swing.JLabel lblBack;
     // End of variables declaration//GEN-END:variables
 
     int x_Mouse, y_Mouse;
-    
-    private void formMousePressed(java.awt.event.MouseEvent evt) {                                  
-        // TODO add your handling code here:
-         x_Mouse = evt.getX();
-         y_Mouse = evt.getY();
-    }                                 
 
-    private void formMouseDragged(java.awt.event.MouseEvent evt) {                                  
+    private void formMousePressed(java.awt.event.MouseEvent evt) {
+        // TODO add your handling code here:
+        x_Mouse = evt.getX();
+        y_Mouse = evt.getY();
+    }
+
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
-        
+
         setLocation(x - x_Mouse, y - y_Mouse);
-    }    
+    }
 }

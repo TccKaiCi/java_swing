@@ -3,12 +3,11 @@ package TicTacToe;
 public class Home extends javax.swing.JFrame {
 
     public void init() {
-        lblAvatar.setIcon(new javax.swing.ImageIcon
-        (getClass().getResource("/TicTacToe/img/Avatar/"+ Memory.iconName +".png")));
-        
+        lblAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/TicTacToe/img/Avatar/" + Memory.iconName + ".png")));
+
         jLabel1.setText(Memory.Player_Name);
     }
-    
+
     public Home() {
         initComponents();
         init();
@@ -32,13 +31,14 @@ public class Home extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         lblAvatar = new javax.swing.JLabel();
         lblBack = new javax.swing.JLabel();
-        lblSound = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnSinglePlayer = new javax.swing.JButton();
         btnMultPlayer = new javax.swing.JButton();
         btnSetting = new javax.swing.JButton();
         btnQuit = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -64,15 +64,11 @@ public class Home extends javax.swing.JFrame {
         jPanel2.add(lblBack);
         lblBack.setBounds(300, 0, 100, 90);
 
-        lblSound.setIcon(new javax.swing.ImageIcon(getClass().getResource("/TicTacToe/img/Black Sound.png"))); // NOI18N
-        jPanel2.add(lblSound);
-        lblSound.setBounds(120, 50, 50, 50);
-
         jLabel1.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("PLAYER NAME");
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(126, 6, 174, 40);
+        jLabel1.setBounds(130, 30, 174, 40);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 400, 100);
@@ -90,6 +86,11 @@ public class Home extends javax.swing.JFrame {
         btnMultPlayer.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         btnMultPlayer.setText("Multiple player");
         btnMultPlayer.setEnabled(false);
+        btnMultPlayer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMultPlayerActionPerformed(evt);
+            }
+        });
 
         btnSetting.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         btnSetting.setText("Setting");
@@ -107,18 +108,34 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel2.setText("Copyright © HiamKaito");
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel3.setText(Memory.version);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(64, 64, 64)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnQuit, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSetting, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMultPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSinglePlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnQuit, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSetting, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMultPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSinglePlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 57, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,7 +148,14 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(btnSetting, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnQuit, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 17, Short.MAX_VALUE)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         jPanel1.add(jPanel3);
@@ -163,6 +187,12 @@ public class Home extends javax.swing.JFrame {
         Game game = new Game();
         game.setVisible(true);
     }//GEN-LAST:event_btnSinglePlayerActionPerformed
+
+    private void btnMultPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMultPlayerActionPerformed
+        this.setVisible(false);
+        Mult_Player mult = new Mult_Player();
+        mult.setVisible(true);
+    }//GEN-LAST:event_btnMultPlayerActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -203,27 +233,28 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton btnSetting;
     private javax.swing.JButton btnSinglePlayer;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblAvatar;
     private javax.swing.JLabel lblBack;
-    private javax.swing.JLabel lblSound;
     // End of variables declaration//GEN-END:variables
 
     int x_Mouse, y_Mouse;
-    
-    private void formMousePressed(java.awt.event.MouseEvent evt) {                                  
-        // TODO add your handling code here:
-         x_Mouse = evt.getX();
-         y_Mouse = evt.getY();
-    }                                 
 
-    private void formMouseDragged(java.awt.event.MouseEvent evt) {                                  
+    private void formMousePressed(java.awt.event.MouseEvent evt) {
+        // TODO add your handling code here:
+        x_Mouse = evt.getX();
+        y_Mouse = evt.getY();
+    }
+
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
-        
+
         setLocation(x - x_Mouse, y - y_Mouse);
-    }    
+    }
 }

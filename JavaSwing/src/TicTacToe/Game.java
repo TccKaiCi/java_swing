@@ -54,13 +54,14 @@ public class Game extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         lblAvatar = new javax.swing.JLabel();
         lblBack = new javax.swing.JLabel();
-        lblSound = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         pnlBoard = createBoardGame();
         lblPlayerScore = new javax.swing.JLabel();
         lblBotScore = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -89,15 +90,11 @@ public class Game extends javax.swing.JFrame {
         jPanel2.add(lblBack);
         lblBack.setBounds(300, 0, 100, 90);
 
-        lblSound.setIcon(new javax.swing.ImageIcon(getClass().getResource("/TicTacToe/img/Black Sound.png"))); // NOI18N
-        jPanel2.add(lblSound);
-        lblSound.setBounds(120, 50, 50, 50);
-
         jLabel1.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("PLAYER NAME");
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(126, 6, 174, 40);
+        jLabel1.setBounds(130, 30, 174, 40);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 400, 100);
@@ -131,35 +128,56 @@ public class Game extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText(":");
 
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel3.setText(Memory.version);
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel2.setText("Copyright © HiamKaito");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(59, Short.MAX_VALUE)
+                .addGap(0, 63, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(pnlBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57))
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(lblPlayerScore)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblBotScore)
-                        .addGap(143, 143, 143))))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(89, 89, 89)
+                                .addComponent(lblPlayerScore)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblBotScore))
+                            .addComponent(pnlBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(53, 53, 53))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPlayerScore)
                     .addComponent(lblBotScore)
                     .addComponent(jLabel4))
-                .addGap(36, 36, 36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(19, 19, 19)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 17, Short.MAX_VALUE)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         jPanel1.add(jPanel3);
@@ -223,6 +241,8 @@ public class Game extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -231,13 +251,13 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JLabel lblBack;
     private javax.swing.JLabel lblBotScore;
     private javax.swing.JLabel lblPlayerScore;
-    private javax.swing.JLabel lblSound;
     private javax.swing.JPanel pnlBoard;
     // End of variables declaration//GEN-END:variables
 
     int x_Mouse, y_Mouse;
     int[][] arrIntBoard;
     JButton[][] arrBtnBoard;
+    boolean botFisrtTurn = true;
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
@@ -353,13 +373,17 @@ public class Game extends javax.swing.JFrame {
     }
 
     public void botGo() {
-        if (botAtt() != 0) {
-            System.out.println("Bot Attack");
-        } else if (botDef() != 0) {
-            System.out.println("Bot Defend");
+        if (arrBtnBoard[1][1].isEnabled() == true) {
+            botRandomTurn(1, 1);
         } else {
-            System.out.println("Bot go to random move");
-            botRandom();
+            if (botAtt() != 0) {
+                System.out.println("Bot Attack ");
+            } else if (botDef() != 0) {
+                System.out.println("Bot Defend ");
+            } else {
+                System.out.println("Bot random move");
+                botRandom();
+            }
         }
     }
 
@@ -391,6 +415,7 @@ public class Game extends javax.swing.JFrame {
                 System.out.println("Bot bi chan");
             } else if ((a / 2) + (b / 2) + (c / 2) == 2
                     && a != 1 && b != 1 && c != 1) {
+
                 botRandomTurn(0, j);
                 botRandomTurn(1, j);
                 botRandomTurn(2, j);
@@ -401,11 +426,13 @@ public class Game extends javax.swing.JFrame {
 
 //        check another
         if ((arrIntBoard[0][0] / 2) + (arrIntBoard[1][1] / 2)
-                + (arrIntBoard[2][2] / 2) == 4) {
+                + (arrIntBoard[2][2] / 2) == 2) {
 
             if (arrIntBoard[0][0] == 1
                     || arrIntBoard[1][1] == 1
                     || arrIntBoard[2][2] == 1) {
+                System.out.println("Da bi chan");
+            } else {
                 botRandomTurn(0, 0);
                 botRandomTurn(1, 1);
                 botRandomTurn(2, 2);
@@ -414,11 +441,13 @@ public class Game extends javax.swing.JFrame {
         }
 
         if ((arrIntBoard[0][2] / 2) + (arrIntBoard[1][1] / 2)
-                + (arrIntBoard[2][0] / 2) == 4) {
+                + (arrIntBoard[2][0] / 2) == 2) {
 
             if (arrIntBoard[0][2] == 1
                     || arrIntBoard[1][1] == 1
                     || arrIntBoard[2][0] == 1) {
+                System.out.println("Da bi chan");
+            } else {
                 botRandomTurn(0, 2);
                 botRandomTurn(1, 1);
                 botRandomTurn(2, 0);
@@ -430,13 +459,19 @@ public class Game extends javax.swing.JFrame {
     }
 
     public int botDef() {
+        if (arrIntBoard[1][1] == 1 && botFisrtTurn) {
+            botRandomTurn(0, 0);
+            botFisrtTurn = false;
+            return 1;
+        }
+
 //        check by row
         for (int i = 0; i < 3; i++) {
             int a = arrIntBoard[i][0];
             int b = arrIntBoard[i][1];
             int c = arrIntBoard[i][2];
 
-            if ((a & 2) + (b % 2) + (c % 2) == 2) {
+            if ((a % 2) + (b % 2) + (c % 2) == 2) {
                 if (a == 2 || b == 2 || c == 2) {
                     System.out.println("Da bi chan");
                     break;
@@ -518,6 +553,27 @@ public class Game extends javax.swing.JFrame {
             }
         }
 
+//        chan theo quy luat 10-01-12-21-10
+        if (arrIntBoard[0][1] == arrIntBoard[1][2]
+                && arrIntBoard[1][2] == 1 && arrBtnBoard[0][2].isEnabled()) {
+            botRandomTurn(0, 2);
+            return 1;
+        }
+        if (arrIntBoard[1][2] == arrIntBoard[2][1]
+                && arrIntBoard[2][1] == 1 && arrBtnBoard[2][2].isEnabled()) {
+            botRandomTurn(2, 2);
+            return 1;
+        }
+        if (arrIntBoard[2][1] == arrIntBoard[1][0]
+                && arrIntBoard[1][0] == 1 && arrBtnBoard[2][0].isEnabled()) {
+            botRandomTurn(2, 0);
+            return 1;
+        }
+        if (arrIntBoard[1][0] == arrIntBoard[0][1]
+                && arrIntBoard[0][1] == 1 && arrBtnBoard[0][0].isEnabled()) {
+            botRandomTurn(0, 0);
+            return 1;
+        }
         return 0;
     }
 
@@ -632,6 +688,8 @@ public class Game extends javax.swing.JFrame {
             }
         }
 
+//        reset fisrt turn for bot
+        botFisrtTurn = true;
         System.out.println("Re-new succes");
     }
 
