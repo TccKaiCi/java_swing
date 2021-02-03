@@ -1,5 +1,9 @@
 package TicTacToe;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
+
 public class Host extends javax.swing.JFrame {
 
     public void init() {
@@ -8,6 +12,22 @@ public class Host extends javax.swing.JFrame {
                         "/TicTacToe/img/Avatar/" + Memory.iconName + ".png")));
 
         jLabel1.setText(Memory.Player_Name);
+        
+//        Create server
+        Memory.server = new Server();
+
+        Timer time = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if (Memory.playerConnect) {
+                    jLabel2.setText(Memory.playerConnectName);
+                }
+                else {
+                    jLabel2.setText("NOT FOUND");
+                }
+            }
+        });
+        time.start();
     }
 
     public Host() {
@@ -40,7 +60,6 @@ public class Host extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         lblAvatar1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnInvate2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -78,7 +97,12 @@ public class Host extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         btnInvate.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        btnInvate.setText("ACCEPT");
+        btnInvate.setText("PLAY");
+        btnInvate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInvateActionPerformed(evt);
+            }
+        });
 
         jPanel4.setBackground(new java.awt.Color(250, 160, 100));
         jPanel4.setForeground(new java.awt.Color(51, 255, 255));
@@ -94,21 +118,17 @@ public class Host extends javax.swing.JFrame {
         jPanel4.add(jLabel2);
         jLabel2.setBounds(140, 30, 180, 40);
 
-        btnInvate2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        btnInvate2.setText("DENY");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(btnInvate, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnInvate2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(100, 100, 100)
+                        .addComponent(btnInvate, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -117,9 +137,7 @@ public class Host extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnInvate, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnInvate2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnInvate, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(181, Short.MAX_VALUE))
         );
 
@@ -138,6 +156,21 @@ public class Host extends javax.swing.JFrame {
         Mult_Player mult = new Mult_Player();
         mult.setVisible(true);
     }//GEN-LAST:event_lblBackMouseReleased
+
+    private void btnInvateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInvateActionPerformed
+        if (jLabel2.getText().equalsIgnoreCase("NOT FOUND") == true) {
+            System.out.println("Cant find server");
+        } else {
+            Memory.client = new Client();
+            if (Memory.client.Connect()) {
+                this.setVisible(false);
+                Game_Mult game = new Game_Mult();
+                game.setVisible(true);
+            } else {
+                jLabel2.setText("NOT FOUND");
+            }
+        }
+    }//GEN-LAST:event_btnInvateActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -180,7 +213,6 @@ public class Host extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInvate;
-    private javax.swing.JButton btnInvate2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

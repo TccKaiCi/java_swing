@@ -142,12 +142,22 @@ public class Mult_Player extends javax.swing.JFrame {
     }//GEN-LAST:event_lblBackMouseReleased
 
     private void btnInvateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInvateActionPerformed
+        Memory.iValue = 1;
+        Memory.playerTurn = true;
+        Memory.playerMessenger = false;
+        
+//        Active
         this.setVisible(false);
         Host host = new Host();
         host.setVisible(true);
     }//GEN-LAST:event_btnInvateActionPerformed
 
     private void btnInvate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInvate1ActionPerformed
+        Memory.iValue = 2;
+        Memory.playerTurn = false;
+        Memory.playerMessenger = false;
+        
+//        Active 
         this.setVisible(false);
         Join join = new Join();
         join.setVisible(true);

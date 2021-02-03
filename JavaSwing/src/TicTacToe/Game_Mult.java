@@ -1,11 +1,12 @@
 package TicTacToe;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Random;
 import javax.swing.*;
 
-public class Game extends javax.swing.JFrame {
+public class Game_Mult extends javax.swing.JFrame {
 
 //    create new 
     public void init() {
@@ -20,14 +21,75 @@ public class Game extends javax.swing.JFrame {
         }
     }
 
-//    run after Jframe created
     public void init2() {
         lblAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/TicTacToe/img/Avatar/" + Memory.iconName + ".png")));
 
         jLabel1.setText(Memory.Player_Name);
+
+//        Find anything change from other client
+        Timer time = new Timer(500, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+//                We have messenger to add move
+                if (Memory.playerMessenger == true
+                        && !Memory.messenger.equalsIgnoreCase(" ")) {
+
+//                    take a messenger
+                    System.out.println("thời gian chạy");
+                    String[] s = Memory.messenger.split(" ");
+                    System.out.println("Tin nhan dc nhan: " + Memory.messenger);
+
+//                    is thats a move already moved  
+                    if (arrIntBoard[Integer.parseInt(s[0])][Integer.parseInt(s[1])] == 0) {
+                        btnClick(Integer.parseInt(s[0]),
+                                Integer.parseInt(s[1]), Integer.parseInt(s[2]));
+//                        we send messenger and wait ... 
+                        Memory.playerMessenger = false;
+                        Memory.playerTurn = true;
+                    }
+                    Memory.messenger = " ";
+                }
+
+//                we have a messenger to change status battle
+                if (Memory.statusMessenger.equalsIgnoreCase(" ") == false) {
+                    System.out.println("Tin nhan trang thai duoc nhan: " + Memory.statusMessenger);
+
+//                    thats reset table
+                    if (Memory.statusMessenger.equalsIgnoreCase("RESET") == true) {
+                        reset();
+                        Memory.statusMessenger = " ";
+                    }
+//                    CLient quit game
+                    if (Memory.statusMessenger.equalsIgnoreCase("END") == true) {
+                        System.exit(0);
+                        Memory.statusMessenger = " ";
+                    }
+
+//                    who win?
+                    if (Memory.statusMessenger.equalsIgnoreCase("Host win") == true) {
+                        int temp = Integer.parseInt(lblHostScore.getText());
+                        temp++;
+                        lblHostScore.setText(String.valueOf(temp));
+
+                        Memory.statusMessenger = " ";
+                        resetDialog("Host");
+                    }
+                    if (Memory.statusMessenger.equalsIgnoreCase("Client win") == true) {
+                        int temp = Integer.parseInt(lblClientScore.getText());
+                        temp++;
+                        lblClientScore.setText(String.valueOf(temp));
+
+                        Memory.statusMessenger = " ";
+                        resetDialog("Client");
+                    }
+                }
+
+            }
+        });
+        time.start();
     }
 
-    public Game() {
+    public Game_Mult() {
         init();
         initComponents();
         init2();
@@ -55,8 +117,8 @@ public class Game extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         pnlBoard = createBoardGame();
-        lblPlayerScore = new javax.swing.JLabel();
-        lblBotScore = new javax.swing.JLabel();
+        lblHostScore = new javax.swing.JLabel();
+        lblClientScore = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -114,13 +176,13 @@ public class Game extends javax.swing.JFrame {
             .addGap(0, 277, Short.MAX_VALUE)
         );
 
-        lblPlayerScore.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        lblPlayerScore.setForeground(new java.awt.Color(0, 0, 0));
-        lblPlayerScore.setText("0");
+        lblHostScore.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        lblHostScore.setForeground(new java.awt.Color(0, 0, 0));
+        lblHostScore.setText("0");
 
-        lblBotScore.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        lblBotScore.setForeground(new java.awt.Color(0, 0, 0));
-        lblBotScore.setText("0");
+        lblClientScore.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        lblClientScore.setForeground(new java.awt.Color(0, 0, 0));
+        lblClientScore.setText("0");
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -150,11 +212,11 @@ public class Game extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(89, 89, 89)
-                                .addComponent(lblPlayerScore)
+                                .addComponent(lblHostScore)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
-                                .addComponent(lblBotScore))
+                                .addComponent(lblClientScore))
                             .addComponent(pnlBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(53, 53, 53))))
         );
@@ -163,8 +225,8 @@ public class Game extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPlayerScore)
-                    .addComponent(lblBotScore)
+                    .addComponent(lblHostScore)
+                    .addComponent(lblClientScore)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -212,14 +274,22 @@ public class Game extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Game_Mult.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Game_Mult.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Game_Mult.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Game_Mult.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -232,7 +302,7 @@ public class Game extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Game().setVisible(true);
+                new Game_Mult().setVisible(true);
             }
         });
     }
@@ -247,15 +317,14 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblAvatar;
     private javax.swing.JLabel lblBack;
-    private javax.swing.JLabel lblBotScore;
-    private javax.swing.JLabel lblPlayerScore;
+    private javax.swing.JLabel lblClientScore;
+    private javax.swing.JLabel lblHostScore;
     private javax.swing.JPanel pnlBoard;
     // End of variables declaration//GEN-END:variables
 
     int x_Mouse, y_Mouse;
     int[][] arrIntBoard;
     JButton[][] arrBtnBoard;
-    boolean botFisrtTurn = true;
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
@@ -302,7 +371,12 @@ public class Game extends javax.swing.JFrame {
                         if (src.isEnabled() == false) {
                             System.out.println("Loi");
                         } else {
-                            btnClick(Integer.parseInt(s[0]), Integer.parseInt(s[1]), 1);
+                            if (Memory.playerTurn == true) {
+                                btnClick(Integer.parseInt(s[0]),
+                                        Integer.parseInt(s[1]), Memory.iValue);
+                                Memory.playerTurn = false;
+                            }
+
                         }
                     }
                 });
@@ -324,12 +398,20 @@ public class Game extends javax.swing.JFrame {
 //        number 2 for player 2 or bot
         if (iValue == 1) {
             arrBtnBoard[xPos][yPos].setText("X");
-            setDataSelected(xPos, yPos, 1);
+        } else {
+            arrBtnBoard[xPos][yPos].setText("O");
+        }
+        setDataSelected(xPos, yPos, iValue);
 
 //        display arr;
-            displayArrInt();
-        }
+        displayArrInt();
+//          disable for not play
         arrBtnBoard[xPos][yPos].setEnabled(false);
+
+//        Sent messenger: i am play this turn at: x y valuePlayer(X or O)
+        Memory.messenger = String.valueOf(xPos) + " " + String.valueOf(yPos)
+                + " " + String.valueOf(iValue);
+        Memory.client.sendMessenger();
 
 //        check win
         int iCheck = checkWin();
@@ -337,24 +419,23 @@ public class Game extends javax.swing.JFrame {
             displayWinner(iCheck);
         } else {
 
-            //        Full??
+//                    is the chest Full??
             if (isFull()) {
                 int re = JOptionPane.showConfirmDialog(null, "DRAW");
                 if (re != 1) {
-                    reset();
+//                    CALL RESET GAME
+                    Memory.statusMessenger = "RESET";
+                    Memory.client.sendStatusMessenger();
                 } else {
+//                    CALL END GAME
+                    Memory.statusMessenger = "END";
+                    Memory.client.sendStatusMessenger();
+
+//                    exit
                     this.setVisible(false);
                     Home home = new Home();
                     home.setVisible(true);
                 }
-            } else {
-                botGo();
-                iCheck = checkWin();
-                if (iCheck == 1 || iCheck == 2) {
-                    displayWinner(iCheck);
-                }
-//        display arr;
-                displayArrInt();
             }
         }
     }
@@ -368,235 +449,6 @@ public class Game extends javax.swing.JFrame {
      */
     public void setDataSelected(int xPos, int yPos, int iValue) {
         arrIntBoard[xPos][yPos] = iValue;
-    }
-
-    public void botGo() {
-        if (arrBtnBoard[1][1].isEnabled() == true) {
-            botRandomTurn(1, 1);
-        } else {
-            if (botAtt() != 0) {
-                System.out.println("Bot Attack ");
-            } else if (botDef() != 0) {
-                System.out.println("Bot Defend ");
-            } else {
-                System.out.println("Bot random move");
-                botRandom();
-            }
-        }
-    }
-
-    public int botAtt() {
-//        check by row
-        for (int i = 0; i < 3; i++) {
-            int a = arrIntBoard[i][0];
-            int b = arrIntBoard[i][1];
-            int c = arrIntBoard[i][2];
-
-            if (a == 1 || b == 1 || c == 1) {
-                System.out.println("Bot bi chan");
-            } else if ((a / 2) + (b / 2) + (c / 2) == 2) {
-                botRandomTurn(i, 0);
-                botRandomTurn(i, 1);
-                botRandomTurn(i, 2);
-
-                return 1;
-            }
-        }
-
-//        check by col
-        for (int j = 0; j < 3; j++) {
-            int a = arrIntBoard[0][j];
-            int b = arrIntBoard[1][j];
-            int c = arrIntBoard[2][j];
-
-            if (a == 1 || b == 1 || c == 1) {
-                System.out.println("Bot bi chan");
-            } else if ((a / 2) + (b / 2) + (c / 2) == 2
-                    && a != 1 && b != 1 && c != 1) {
-
-                botRandomTurn(0, j);
-                botRandomTurn(1, j);
-                botRandomTurn(2, j);
-
-                return 1;
-            }
-        }
-
-//        check another
-        if ((arrIntBoard[0][0] / 2) + (arrIntBoard[1][1] / 2)
-                + (arrIntBoard[2][2] / 2) == 2) {
-
-            if (arrIntBoard[0][0] == 1
-                    || arrIntBoard[1][1] == 1
-                    || arrIntBoard[2][2] == 1) {
-                System.out.println("Da bi chan");
-            } else {
-                botRandomTurn(0, 0);
-                botRandomTurn(1, 1);
-                botRandomTurn(2, 2);
-                return 1;
-            }
-        }
-
-        if ((arrIntBoard[0][2] / 2) + (arrIntBoard[1][1] / 2)
-                + (arrIntBoard[2][0] / 2) == 2) {
-
-            if (arrIntBoard[0][2] == 1
-                    || arrIntBoard[1][1] == 1
-                    || arrIntBoard[2][0] == 1) {
-                System.out.println("Da bi chan");
-            } else {
-                botRandomTurn(0, 2);
-                botRandomTurn(1, 1);
-                botRandomTurn(2, 0);
-                return 1;
-            }
-        }
-
-        return 0;
-    }
-
-    public int botDef() {
-        if (arrIntBoard[1][1] == 1 && botFisrtTurn) {
-            botRandomTurn(0, 0);
-            botFisrtTurn = false;
-            return 1;
-        }
-
-//        check by row
-        for (int i = 0; i < 3; i++) {
-            int a = arrIntBoard[i][0];
-            int b = arrIntBoard[i][1];
-            int c = arrIntBoard[i][2];
-
-            if ((a % 2) + (b % 2) + (c % 2) == 2) {
-                if (a == 2 || b == 2 || c == 2) {
-                    System.out.println("Da bi chan");
-                    break;
-                }
-                if (a == 0) {
-                    botRandomTurn(i, 0);
-                }
-                if (b == 0) {
-                    botRandomTurn(i, 1);
-                }
-                if (c == 0) {
-                    botRandomTurn(i, 2);
-                }
-
-                return 1;
-            }
-        }
-
-//        check by col
-        for (int j = 0; j < 3; j++) {
-            int a = arrIntBoard[0][j];
-            int b = arrIntBoard[1][j];
-            int c = arrIntBoard[2][j];
-
-            if ((a % 2) + (b % 2) + (c % 2) == 2) {
-                if (a == 2 || b == 2 || c == 2) {
-                    System.out.println("Da bi chan");
-                    break;
-                }
-                if (a == 0) {
-                    botRandomTurn(0, j);
-                }
-                if (b == 0) {
-                    botRandomTurn(1, j);
-                }
-                if (c == 0) {
-                    botRandomTurn(2, j);
-                }
-
-                return 1;
-            }
-        }
-
-//        check another
-        if ((arrIntBoard[0][0] % 2) + (arrIntBoard[1][1] % 2)
-                + (arrIntBoard[2][2] % 2) == 2) {
-
-            if (arrIntBoard[0][0] == 2 || arrIntBoard[1][1] == 2 || arrIntBoard[2][2] == 2) {
-                System.out.println("Da bi chan");
-            } else {
-                if (arrIntBoard[0][0] == 0) {
-                    botRandomTurn(0, 0);
-                }
-                if (arrIntBoard[1][1] == 0) {
-                    botRandomTurn(1, 1);
-                }
-                if (arrIntBoard[2][2] == 0) {
-                    botRandomTurn(2, 2);
-                }
-                return 1;
-            }
-        }
-
-        if ((arrIntBoard[0][2] % 2) + (arrIntBoard[1][1] % 2)
-                + (arrIntBoard[2][0] % 2) == 2) {
-            if (arrIntBoard[2][0] == 2 || arrIntBoard[1][1] == 2 || arrIntBoard[0][2] == 2) {
-                System.out.println("Da bi chan");
-            } else {
-                if (arrIntBoard[0][2] == 0) {
-                    botRandomTurn(0, 2);
-                }
-                if (arrIntBoard[1][1] == 0) {
-                    botRandomTurn(1, 1);
-                }
-                if (arrIntBoard[2][0] == 0) {
-                    botRandomTurn(2, 0);
-                }
-                return 1;
-            }
-        }
-
-//        chan theo quy luat 10-01-12-21-10
-        if (arrIntBoard[0][1] == arrIntBoard[1][2]
-                && arrIntBoard[1][2] == 1 && arrBtnBoard[0][2].isEnabled()) {
-            botRandomTurn(0, 2);
-            return 1;
-        }
-        if (arrIntBoard[1][2] == arrIntBoard[2][1]
-                && arrIntBoard[2][1] == 1 && arrBtnBoard[2][2].isEnabled()) {
-            botRandomTurn(2, 2);
-            return 1;
-        }
-        if (arrIntBoard[2][1] == arrIntBoard[1][0]
-                && arrIntBoard[1][0] == 1 && arrBtnBoard[2][0].isEnabled()) {
-            botRandomTurn(2, 0);
-            return 1;
-        }
-        if (arrIntBoard[1][0] == arrIntBoard[0][1]
-                && arrIntBoard[0][1] == 1 && arrBtnBoard[0][0].isEnabled()) {
-            botRandomTurn(0, 0);
-            return 1;
-        }
-        return 0;
-    }
-
-    public void botRandom() {
-        boolean flag = true;
-        Random rand = new Random();
-
-        do {
-            int i = rand.nextInt(3);
-            int j = rand.nextInt(3);
-
-            if (arrIntBoard[i][j] == 0) {
-                arrBtnBoard[i][j].setText("O");
-                arrBtnBoard[i][j].setEnabled(false);
-                setDataSelected(i, j, 2);
-                flag = false;
-            }
-        } while (flag == true);
-    }
-
-    public void botRandomTurn(int xPos, int yPos) {
-        arrIntBoard[xPos][yPos] = 2;
-
-        arrBtnBoard[xPos][yPos].setText("O");
-        arrBtnBoard[xPos][yPos].setEnabled(false);
     }
 
     /**
@@ -635,29 +487,19 @@ public class Game extends javax.swing.JFrame {
 
     public void displayWinner(int iCheck) {
         String s = "";
+
         if (iCheck == 1) {
-            int temp = Integer.parseInt(lblPlayerScore.getText());
+            s = "Host win";
 
-            s = Memory.Player_Name + " win";
-            System.out.println(s);
-            temp++;
-            lblPlayerScore.setText(String.valueOf(temp));
         } else {
-            int temp = Integer.parseInt(lblBotScore.getText());
+            s = "Client win";
+        }
 
-            s = "Bot win";
-            System.out.println(s);
-            temp++;
-            lblBotScore.setText(String.valueOf(temp));
-        }
-        int re = JOptionPane.showConfirmDialog(null, s + " ,Reset?");
-        if (re != 1) {
-            reset();
-        } else {
-            this.setVisible(false);
-            Home home = new Home();
-            home.setVisible(true);
-        }
+//            send status messenger
+        Memory.statusMessenger = s;
+        Memory.client.sendStatusMessenger();
+
+//==============================================================================
     }
 
     public void displayArrInt() {
@@ -667,6 +509,19 @@ public class Game extends javax.swing.JFrame {
                 System.out.printf(arrIntBoard[i][j] + " ");
             }
             System.out.println("");
+        }
+    }
+
+    public void resetDialog(String player) {
+        //        display dialog
+        int re = JOptionPane.showConfirmDialog(null, player + " win,Reset?");
+        if (re != 1) {
+            Memory.statusMessenger = "RESET";
+            Memory.client.sendStatusMessenger();
+        } else {
+            this.setVisible(false);
+            Home home = new Home();
+            home.setVisible(true);
         }
     }
 
@@ -686,8 +541,6 @@ public class Game extends javax.swing.JFrame {
             }
         }
 
-//        reset fisrt turn for bot
-        botFisrtTurn = true;
         System.out.println("Re-new succes");
     }
 
@@ -707,4 +560,5 @@ public class Game extends javax.swing.JFrame {
         }
         return false;
     }
+
 }

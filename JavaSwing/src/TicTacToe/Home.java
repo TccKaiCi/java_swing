@@ -85,7 +85,6 @@ public class Home extends javax.swing.JFrame {
 
         btnMultPlayer.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         btnMultPlayer.setText("Multiple player");
-        btnMultPlayer.setEnabled(false);
         btnMultPlayer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMultPlayerActionPerformed(evt);
