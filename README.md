@@ -16,7 +16,7 @@
 | Project | Progress | Difficult | Spending time |
 | --------- | ----- | ------------ | -------------------- |
 | [OneTwoThree](./JavaSwing/src/OneTwoThree) | 100% | easy | about 8 hours in 3 days |
-| [TicTacToe](./JavaSwing/src/TicTacToe) | 40% | Normal | 4 hours from now |
+| [TicTacToe](https://github.com/HiamKaito/TicTacToe) | 90% | Normal | 24h+ in 1 week |
 | [Caro](./JavaSwing/src/OneTwoThree) | 0% | Normal | 0 |
 | [Picachu](./JavaSwing/src/OneTwoThree) | 0% | Normal | 0 |
 | etc | |
